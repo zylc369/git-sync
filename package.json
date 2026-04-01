@@ -3,17 +3,17 @@
   "version": "0.1.0",
   "description": "Git repository sync CLI and library - commit, pull, merge, push with conflict resolution",
   "type": "module",
-  "main": "./src/index.ts",
+  "main": "./dist/index.js",
   "exports": {
     ".": {
       "bun": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "bin": {
-    "git-sync": "./src/cli.ts"
+    "git-sync": "./dist/cli.js"
   },
   "files": [
     "dist",

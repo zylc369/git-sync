@@ -1,53 +1,53 @@
 # git-sync
 
-Git repository sync tool — commit, pull, merge, push with conflict resolution. Works as both CLI and library.
+Git 仓库同步工具 — 提交、拉取、合并、推送，支持冲突解决。可同时作为 CLI 工具和库使用。
 
-## Sync Flow
+## 同步流程
 
-1. Commit uncommitted local changes
-2. Pull remote changes
-3. Merge — if conflict, handle per `conflictResolution` option
-4. Push local commits — if remote is ahead, retry from step 2 (max 3 retries)
-5. Record success
+1. 提交未提交的本地更改
+2. 拉取远程更改
+3. 合并 — 如有冲突，按 `conflictResolution` 选项处理
+4. 推送本地提交 — 如远程领先，则从第 2 步重试（最多 3 次）
+5. 记录成功
 
-## Install
+## 安装
 
 ```bash
 bun add git-sync
 npm install git-sync
 ```
 
-## CLI Usage
+## CLI 用法
 
 ```bash
-# Basic sync
+# 基本同步
 bunx git-sync /path/to/repo
 
-# With options
+# 带选项
 bunx git-sync /path/to/repo --conflict-resolution local --merge-mode rebase
 
-# Custom commit message
+# 自定义提交消息
 bunx git-sync /path/to/repo --commit-message "deploy: production release"
 
-# Check status only (no sync)
+# 仅查看状态（不同步）
 bunx git-sync /path/to/repo --status
 ```
 
-### CLI Options
+### CLI 选项
 
-| Option | Values | Default | Description |
+| 选项 | 可选值 | 默认值 | 说明 |
 |--------|--------|---------|-------------|
-| `--conflict-resolution` | `abort`, `local`, `remote` | `abort` | How to handle merge conflicts |
-| `--merge-mode` | `no-rebase`, `rebase`, `fast-forward` | `no-rebase` | Git merge strategy |
-| `--commit-message` | string | auto-generated | Custom commit message |
-| `--status` | flag | off | Show repo status only |
+| `--conflict-resolution` | `abort`, `local`, `remote` | `abort` | 如何处理合并冲突 |
+| `--merge-mode` | `no-rebase`, `rebase`, `fast-forward` | `no-rebase` | Git 合并策略 |
+| `--commit-message` | string | 自动生成 | 自定义提交消息 |
+| `--status` | flag | 关闭 | 仅显示仓库状态 |
 
-## Library Usage
+## 库用法
 
 ```typescript
 import { syncRepo, getRepoStatus } from 'git-sync';
 
-// Sync a repository
+// 同步仓库
 const result = await syncRepo({
   localPath: '/path/to/my/repo',
   conflictResolution: 'local',
@@ -61,7 +61,7 @@ if (result.success) {
   console.error(`Failed: ${result.error}`);
 }
 
-// Check status
+// 查看状态
 const status = await getRepoStatus('/path/to/my/repo');
 console.log(status.status); // 'synced' | 'uncommitted' | 'unpushed' | 'error'
 ```
@@ -70,21 +70,21 @@ console.log(status.status); // 'synced' | 'uncommitted' | 'unpushed' | 'error'
 
 ### `syncRepo(options: SyncOptions): Promise<SyncResult>`
 
-Main sync function. Commits, pulls, merges, and pushes a repository.
+主同步函数。提交、拉取、合并并推送仓库。
 
 ### `getRepoStatus(localPath: string): Promise<RepoStatusResult>`
 
-Returns current repo status without modifying anything.
+返回当前仓库状态，不做任何修改。
 
 ### `getRepoInfo(localPath: string): Promise<RepoInfo | null>`
 
-Returns detailed repo information (branch, remote, commits, dirty state).
+返回详细的仓库信息（分支、远程地址、提交、脏状态）。
 
-### Low-level functions
+### 底层函数
 
-Also exported for advanced usage: `runGitCommand`, `getCurrentBranch`, `getRemoteUrl`, `validateRepo`, `hasUncommittedChanges`, `hasUnpushedCommits`, `getRecentCommits`, `commitChanges`, `pullFromRemote`, `pushToRemote`, `sleep`, `isGitNetworkError`, `isRemoteAheadError`, `hasGitMergeConflict`.
+同样导出供高级使用：`runGitCommand`、`getCurrentBranch`、`getRemoteUrl`、`validateRepo`、`hasUncommittedChanges`、`hasUnpushedCommits`、`getRecentCommits`、`commitChanges`、`pullFromRemote`、`pushToRemote`、`sleep`、`isGitNetworkError`、`isRemoteAheadError`、`hasGitMergeConflict`。
 
-## Development
+## 开发
 
 ```bash
 bun install
@@ -93,6 +93,6 @@ bun run build
 bun run release:dry
 ```
 
-## License
+## 许可证
 
 Apache-2.0

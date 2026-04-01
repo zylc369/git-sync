@@ -18,7 +18,7 @@ export interface SyncResult {
   lastSyncTime?: string;
 }
 
-export type RepoStatus = 'clean' | 'uncommitted' | 'unpushed' | 'synced' | 'error';
+export type RepoStatus = 'uncommitted' | 'unpushed' | 'synced' | 'error';
 
 export interface RepoStatusResult {
   localPath: string;
