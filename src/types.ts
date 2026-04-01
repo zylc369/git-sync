@@ -63,7 +63,10 @@ export interface PullResult {
 export interface PushResult {
   success: boolean;
   error?: string;
+  errorCode?: PushErrorCode;
 }
+
+export type PushErrorCode = 'remote_ahead' | 'network_error';
 
 export interface CommitResult {
   success: boolean;

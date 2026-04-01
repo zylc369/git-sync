@@ -5,6 +5,7 @@ import {
   type ValidateResult,
   type PullResult,
   type PushResult,
+  type PushErrorCode,
   type CommitResult,
   type CommitInfo,
   MAX_GIT_RETRIES,
@@ -236,7 +237,19 @@ async function resolveRebaseConflict(
     await runGitCommand(['checkout', '--ours', '.'], cwd);
     await runGitCommand(['add', '.'], cwd);
   }
-  await runGitCommand(['rebase', '--continue'], cwd);
+
+  const continueResult = await runGitCommand(['rebase', '--continue'], cwd);
+  if (continueResult.exitCode !== 0) {
+    const output = continueResult.stderr + ' ' + continueResult.stdout;
+    if (hasMergeConflict(output)) {
+      return resolveRebaseConflict(conflictResolution, cwd);
+    }
+    return {
+      success: false,
+      hadConflict: true,
+      error: `rebase --continue failed: ${continueResult.stderr}`,
+    };
+  }
   return { success: true, hadConflict: true };
 }
 
@@ -256,14 +269,14 @@ export async function pushToRemote(
     }
     const error = result.stderr || result.stdout || '';
     if (isRemoteAheadError(error)) {
-      return { success: false, error: 'remote_ahead' };
+      return { success: false, error: 'remote_ahead', errorCode: 'remote_ahead' };
     }
     if (isGitNetworkError(error)) {
       if (attempt < MAX_GIT_RETRIES - 1) {
         await sleep(1000 * (attempt + 1));
         continue;
       }
-      return { success: false, error: `push failed after ${MAX_GIT_RETRIES} retries: ${error}` };
+      return { success: false, error: `push failed after ${MAX_GIT_RETRIES} retries: ${error}`, errorCode: 'network_error' };
     }
     return { success: false, error };
   }

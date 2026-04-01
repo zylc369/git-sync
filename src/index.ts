@@ -30,5 +30,6 @@ export type {
   ValidateResult,
   PullResult,
   PushResult,
+  PushErrorCode,
   CommitResult,
 } from './types.ts';

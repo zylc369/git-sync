@@ -82,7 +82,7 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
       };
     }
 
-    if (pushResult.error === 'remote_ahead') {
+    if (pushResult.errorCode === 'remote_ahead') {
       continue;
     }
 
