@@ -1,0 +1,54 @@
+{
+  "name": "git-sync",
+  "version": "0.1.0",
+  "description": "Git repository sync CLI and library - commit, pull, merge, push with conflict resolution",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": {
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "bin": {
+    "git-sync": "./src/cli.ts"
+  },
+  "files": [
+    "dist",
+    "src",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "release:dry": "bun run build && npm publish --dry-run",
+    "release": "bun run build && npm publish",
+    "prepublishOnly": "bun run build && bun test"
+  },
+  "keywords": [
+    "git",
+    "sync",
+    "pull",
+    "push",
+    "merge",
+    "rebase",
+    "cli",
+    "automation"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "commander": "^14.0.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
