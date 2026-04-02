@@ -53,6 +53,17 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
     }
   }
 
+  const hasUnpushed = await hasUnpushedCommits(branch, localPath);
+  if (!hasUnpushed) {
+    return {
+      success: true,
+      localPath,
+      remoteUrl,
+      branch,
+      lastSyncTime: new Date().toISOString(),
+    };
+  }
+
   for (let retryCount = 0; retryCount < MAX_MERGE_RETRIES; retryCount++) {
     const pullResult = await pullFromRemote(
       branch,

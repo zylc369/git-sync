@@ -94,7 +94,6 @@ export const NETWORK_ERROR_PATTERNS: readonly string[] = [
 export const REMOTE_AHEAD_PATTERNS: readonly string[] = [
   'Updates were rejected because the remote contains work that you do',
   'Updates were rejected because the tip of your current branch is behind',
-  'failed to push some refs',
   'non-fast-forward',
 ];
 
