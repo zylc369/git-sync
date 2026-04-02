@@ -5,6 +5,7 @@ import {
   type RepoStatusResult,
   type RepoInfo,
   MAX_MERGE_RETRIES,
+  PACKAGE_NAME,
 } from './types.ts';
 import {
   validateRepo,
@@ -39,7 +40,7 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
 
   const uncommitted = await hasUncommittedChanges(localPath);
   if (uncommitted) {
-    const msg = commitMessage ?? `chore: git-sync auto commit [${new Date().toISOString()}]`;
+    const msg = commitMessage ?? `chore: ${PACKAGE_NAME} auto commit [${new Date().toISOString()}]`;
     const commitResult = await commitChanges(msg, localPath);
     if (!commitResult.success) {
       return {

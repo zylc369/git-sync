@@ -73,6 +73,8 @@ export interface CommitResult {
   error?: string;
 }
 
+export const PACKAGE_NAME = 'bw-git-sync';
+
 export const MAX_GIT_RETRIES = 3;
 export const MAX_MERGE_RETRIES = 3;
 

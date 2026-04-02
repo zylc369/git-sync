@@ -1,5 +1,5 @@
 {
-  "name": "git-sync",
+  "name": "@zylc369/bw-git-sync",
   "version": "0.1.0",
   "description": "Git repository sync CLI and library - commit, pull, merge, push with conflict resolution",
   "type": "module",
@@ -13,7 +13,7 @@
     }
   },
   "bin": {
-    "git-sync": "./dist/cli.js"
+    "bw-git-sync": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -21,12 +21,15 @@
     "LICENSE",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
-    "release:dry": "bun run build && npm publish --dry-run",
-    "release": "bun run build && npm publish",
+    "release:dry": "bun run build && npm publish --dry-run --access public",
+    "release": "bun run build && npm publish --access public",
     "prepublishOnly": "bun run build && bun test"
   },
   "keywords": [

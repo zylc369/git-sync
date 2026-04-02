@@ -1,10 +1,11 @@
 import { Command } from 'commander';
 import { syncRepo, getRepoStatus } from './sync.ts';
+import { PACKAGE_NAME } from './types.ts';
 
 const program = new Command();
 
 program
-  .name('git-sync')
+  .name(PACKAGE_NAME)
   .description('Git repository sync tool - commit, pull, merge, push with conflict resolution')
   .version('0.1.0');
 
