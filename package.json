@@ -1,6 +1,6 @@
 {
   "name": "@zylc369/bw-git-sync",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Git repository sync CLI and library - commit, pull, merge, push with conflict resolution",
   "type": "module",
   "main": "./dist/index.js",
