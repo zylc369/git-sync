@@ -33,6 +33,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
       remoteUrl: '',
       branch: '',
       error: validation.error,
+      hadUncommitted: false,
+      hadUnpushed: false,
     };
   }
 
@@ -49,6 +51,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
         remoteUrl,
         branch,
         error: commitResult.error,
+        hadUncommitted: true,
+        hadUnpushed: false,
       };
     }
   }
@@ -61,6 +65,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
       remoteUrl,
       branch,
       lastSyncTime: new Date().toISOString(),
+      hadUncommitted: uncommitted,
+      hadUnpushed: false,
     };
   }
 
@@ -78,6 +84,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
         remoteUrl,
         branch,
         error: pullResult.error,
+        hadUncommitted: uncommitted,
+        hadUnpushed: true,
       };
     }
 
@@ -91,6 +99,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
         remoteUrl,
         branch,
         lastSyncTime: new Date().toISOString(),
+        hadUncommitted: uncommitted,
+        hadUnpushed: true,
       };
     }
 
@@ -104,6 +114,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
       remoteUrl,
       branch,
       error: pushResult.error,
+      hadUncommitted: uncommitted,
+      hadUnpushed: true,
     };
   }
 
@@ -113,6 +125,8 @@ export async function syncRepo(options: SyncOptions): Promise<SyncResult> {
     remoteUrl,
     branch,
     error: `Max merge retries (${MAX_MERGE_RETRIES}) exceeded`,
+    hadUncommitted: uncommitted,
+    hadUnpushed: true,
   };
 }
 

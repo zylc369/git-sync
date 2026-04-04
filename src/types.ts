@@ -16,6 +16,8 @@ export interface SyncResult {
   branch: string;
   error?: string;
   lastSyncTime?: string;
+  hadUncommitted?: boolean;
+  hadUnpushed?: boolean;
 }
 
 export type RepoStatus = 'uncommitted' | 'unpushed' | 'synced' | 'error';
